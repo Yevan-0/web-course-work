@@ -1,0 +1,369 @@
+/* ==========================================================================
+   GLOBAL CSS — SHARED STYLESHEET
+   Owner: Student 1
+   Do NOT add page-specific rules here. Page-specific styles belong in
+   embedded <style> blocks on each individual page.
+   All team members must link this file and must not rename/move it
+   without telling the team, since every page's <link> points here.
+   ========================================================================== */
+
+/* --- Fonts -----------------------------------------------------------
+   Fraunces = display face for headings (used with restraint)
+   Inter    = body face for readability
+   ----------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap');
+
+/* --- Design tokens -----------------------------------------------------
+   Colour palette (edit these 6 values to re-theme the whole site)
+   ----------------------------------------------------------------------- */
+:root {
+  --color-primary: #16342B;       /* deep forest green — header, footer, headings */
+  --color-primary-light: #2B5245; /* lighter tint of primary, for hover states */
+  --color-secondary: #D9A441;     /* warm gold/ochre — accents, active states */
+  --color-accent: #3E8577;        /* muted teal — links, interactive highlights */
+  --color-bg: #FAF8F3;            /* warm paper background */
+  --color-surface: #FFFFFF;       /* card / panel background */
+  --color-text: #201E1B;          /* near-black body text */
+  --color-text-muted: #5B564C;    /* secondary text, captions */
+  --color-border: #E4DFD3;        /* hairline borders/dividers */
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', -apple-system, Segoe UI, Roboto, sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+
+  --shadow-card: 0 2px 10px rgba(22, 52, 43, 0.08);
+  --shadow-card-hover: 0 8px 24px rgba(22, 52, 43, 0.14);
+}
+
+/* --- Reset / base ------------------------------------------------------ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible keyboard focus everywhere (accessibility requirement) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* --- Headings & type scale ---------------------------------------------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--color-primary);
+  line-height: 1.2;
+  margin: 0 0 var(--space-2) 0;
+  font-weight: 600;
+}
+
+h1 { font-size: clamp(2rem, 4vw, 2.75rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h3 { font-size: 1.25rem; }
+
+p {
+  margin: 0 0 var(--space-2) 0;
+  color: var(--color-text);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* --- Layout containers ---------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+
+/* --- Header -------------------------------------------------------- */
+.site-header {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* Site identity (logo + name) */
+.site-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-surface);
+}
+
+.site-identity img.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.site-identity .site-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-surface);
+  letter-spacing: 0.01em;
+}
+
+/* --- Navigation ------------------------------------------------------ */
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a {
+  position: relative;
+  display: inline-block;
+  color: var(--color-surface);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  background-color: var(--color-primary-light);
+}
+
+/* Underline-grow indicator on hover */
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.3rem;
+  height: 2px;
+  background-color: var(--color-secondary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Active page indicator — add class="active" to the current page's link */
+.main-nav a.active {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.main-nav a.active::after {
+  display: none;
+}
+
+/* --- Main content area ------------------------------------------------ */
+.site-main {
+  padding: var(--space-4) 0;
+  min-height: 60vh;
+}
+
+/* --- Buttons ------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background-color: var(--color-primary-light);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}
+
+/* --- Cards ------------------------------------------------------------
+   Shared component used across pages (Home page mission cards,
+   content page sections, etc.)
+   ----------------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-3);
+}
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-3px);
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.card-body {
+  padding: var(--space-3);
+}
+
+.card-body h3 {
+  margin-bottom: 0.5rem;
+}
+
+.card-body ul {
+  margin: var(--space-1) 0 0 0;
+  padding-left: 1.1rem;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+}
+
+/* --- Footer ------------------------------------------------------------ */
+.site-footer {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  padding: var(--space-4) 0 var(--space-3) 0;
+  margin-top: var(--space-5);
+}
+
+.site-footer .container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-3);
+}
+
+.site-footer h4 {
+  color: var(--color-secondary);
+  font-size: 1rem;
+  margin-bottom: var(--space-1);
+}
+
+.site-footer a {
+  color: var(--color-surface);
+  opacity: 0.9;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.site-footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-footer li {
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+/* --- Responsive ------------------------------------------------------- */
+@media (max-width: 640px) {
+  .site-header .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-nav ul {
+    width: 100%;
+  }
+}
